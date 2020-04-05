@@ -24,9 +24,18 @@ def personne_elue(name):
     return name == 'Zoureni'
 
 def search(name):
+   visitees = []
    search_queue = deque()
    search_queue += eleves[name]
-   print( len(search_queue) )
+ 
+   while search_queue:
+      personne = search_queue.popleft()
+      if not personne in visitees:
+         if personne_elue(personne):
+            print(personne + " a le fameux Mac")
+            return True
+         search_queue += eleves[personne]
+         visitees.append(personne)
    return False
 
 if __name__== "__main__":
